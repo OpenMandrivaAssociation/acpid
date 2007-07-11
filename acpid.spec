@@ -9,9 +9,9 @@ URL:			http://acpid.sourceforge.net
 Source0:		http://unc.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.bz2
 Source1:		acpid.rc
 Patch0:			acpid-kernel-acpi-h.patch
-Patch1:			acpid-1.0.4-ignore-rpmnew.patch
-Patch2:			acpid-1.0.4-warning.patch
-Patch3:			acpid-1.0.4-noclose.patch
+Patch1:			acpid-1.0.6-ignore-rpmnew.patch
+Patch2:			acpid-1.0.6-warning.patch
+Patch4:			%{name}-1.0.6-makefile.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(preun):	rpm-helper
@@ -20,16 +20,17 @@ BuildRoot:		%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 The ACPI specification defines power and system management functions
-for each computer, in a generic manner.  The ACPI daemon coordinates
+for each computer, in a generic manner. The ACPI daemon coordinates
 the management of power and system functions when ACPI kernel
 support is enabled (kernel 2.3.x or later).
 
 %prep 
 %setup -q
-%patch -p1
+
+%patch0 -p1
 %patch1 -p1 -b .rpmnew
-%patch2 -p1
-%patch3 -p1 -b .noclose
+%patch2 -p1 -b .warning
+%patch4 -p1 -b .optflags
 
 %build
 %serverbuild
@@ -47,10 +48,7 @@ cat > %{name}.logrotate << EOF
 EOF
 
 %install
-mkdir -p %{buildroot}%{_sbindir}
-install -m755 acpid %{buildroot}%{_sbindir}
-mkdir -p %{buildroot}%{_mandir}/man8
-install -m644 acpid.8 %{buildroot}%{_mandir}/man8
+%makeinstall_std INSTPREFIX=%{buildroot}
 
 mkdir -p %{buildroot}/%{_initrddir}
 install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/acpid
@@ -71,9 +69,10 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README
+%doc README TODO Changelog
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_sbindir}/*
+%{_bindir}/*
 %{_mandir}/man8/*
-%config(noreplace) %{_initrddir}/acpid
+%{_initrddir}/acpid
 %dir %{_sysconfdir}/acpi/actions
