@@ -1,7 +1,7 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Version:		1.0.6
-Release:		%mkrel 1
+Release:		%mkrel 2
 License:		GPL
 Group:			System/Servers
 Epoch:			2
@@ -41,25 +41,11 @@ support is enabled (kernel 2.3.x or later).
 %serverbuild
 %make
 
-cat > %{name}.logrotate << EOF
-
-/var/log/acpid {
-    missingok
-    compress
-    postrotate
-        service acpid reload
-    endscript
-}
-EOF
-
 %install
 %makeinstall_std INSTPREFIX=%{buildroot}
 
 mkdir -p %{buildroot}/%{_initrddir}
 install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/acpid
-
-mkdir -p %{buildroot}/%{_sysconfdir}/logrotate.d/
-install -m644 %{name}.logrotate %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}
 
 install -d %{buildroot}%{_sysconfdir}/acpi/actions
 
@@ -75,7 +61,6 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc README TODO Changelog
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_sbindir}/*
 %{_bindir}/*
 %{_mandir}/man8/*
