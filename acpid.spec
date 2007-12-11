@@ -14,6 +14,7 @@ Patch1:			acpid-1.0.6-ignore-rpmnew.patch
 Patch2:			acpid-1.0.6-warning.patch
 Patch4:			%{name}-1.0.6-makefile.patch
 Patch5:			acpid-1.0.6-fd.patch
+Patch6:			acpid-1.0.6-log.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(preun):	rpm-helper
@@ -34,6 +35,7 @@ support is enabled (kernel 2.3.x or later).
 %patch2 -p1 -b .warning
 %patch4 -p1 -b .optflags
 %patch5 -p1 -b .fd
+%patch6 -p1 -b .log
 
 %build
 %serverbuild
