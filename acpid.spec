@@ -19,6 +19,7 @@ ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(preun):	rpm-helper
 Conflicts:		suspend-scripts < 1.27-2mdv2007.1
+BuildRoot:		%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 The ACPI specification defines power and system management functions
