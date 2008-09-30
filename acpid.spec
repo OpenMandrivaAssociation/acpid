@@ -1,7 +1,7 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Version:		1.0.6
-Release:		%manbo_mkrel 5
+Release:		%manbo_mkrel 6
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
