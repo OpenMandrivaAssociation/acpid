@@ -1,7 +1,7 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Version:		1.0.6
-Release:		%manbo_mkrel 6
+Release:		%manbo_mkrel 7
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
@@ -17,6 +17,7 @@ Patch5:			acpid-1.0.6-fd.patch
 Patch6:			acpid-1.0.6-log.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
+Requires(post):		chkconfig >= 1.3.37-3mdv
 Requires(preun):	rpm-helper
 Conflicts:		suspend-scripts < 1.27-2mdv2007.1
 BuildRoot:		%{_tmppath}/%{name}-%{version}-buildroot
@@ -51,6 +52,9 @@ install -d %{buildroot}%{_sysconfdir}/acpi/actions
 
 %clean
 rm -rf %{buildroot}
+
+%triggerpostun -- acpid < 2:1.0.6-7mnb
+/sbin/chkconfig --level 7 acpid reset
 
 %post
 %_post_service acpid
