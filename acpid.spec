@@ -1,20 +1,16 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
-Version:		1.0.6
-Release:		%manbo_mkrel 7
+Version:		1.0.8
+Release:		%manbo_mkrel 1
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
 URL:			http://acpid.sourceforge.net
-Source0:		http://unc.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.bz2
+Source0:		http://unc.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Source1:		acpid.rc
-Patch0:			acpid-kernel-acpi-h.patch
 Patch1:			acpid-1.0.6-ignore-rpmnew.patch
 # patches from RH
-Patch2:			acpid-1.0.6-warning.patch
-Patch4:			%{name}-1.0.6-makefile.patch
-Patch5:			acpid-1.0.6-fd.patch
-Patch6:			acpid-1.0.6-log.patch
+Patch4:			acpid-1.0.8-makefile.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(post):		chkconfig >= 1.3.37-3mdv
@@ -31,12 +27,8 @@ support is enabled (kernel 2.3.x or later).
 %prep 
 %setup -q
 
-%patch0 -p1
 %patch1 -p1 -b .rpmnew
-%patch2 -p1 -b .warning
 %patch4 -p1 -b .optflags
-%patch5 -p1 -b .fd
-%patch6 -p1 -b .log
 
 %build
 %serverbuild
