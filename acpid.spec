@@ -1,16 +1,13 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
-Version:		1.0.10
+Version:		2.0.2
 Release:		%manbo_mkrel 1
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
-URL:			http://acpid.sourceforge.net
-Source0:		http://unc.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
+URL:			http://www.tedfelix.com/linux/acpid-netlink.html
+Source0:		http://www.tedfelix.com/linux/{name}/%{name}-%{version}.tar.gz
 Source1:		acpid.rc
-Patch1:			acpid-1.0.6-ignore-rpmnew.patch
-# patches from RH
-Patch4:			acpid-1.0.8-makefile.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(post):		chkconfig >= 1.3.37-3mdv
@@ -27,16 +24,15 @@ support is enabled (kernel 2.3.x or later).
 %prep 
 %setup -q
 
-%patch1 -p1 -b .rpmnew
-%patch4 -p1 -b .optflags
-
 %build
 %serverbuild
-%make
+# Don't use standard optflag, don't run mandb (does not eixst on Mandriva) and use
+# correct LDFLAGS
+sed -i -e "/^OPT = /d" -e "/mandb -q/d" -e "1iLDFLAGS = -pie %{ldflags}" Makefile
+OPT="%{optflags} -fPIC" %make
 
 %install
-%makeinstall_std INSTPREFIX=%{buildroot}
-
+%makeinstall_std 
 mkdir -p %{buildroot}/%{_initrddir}
 install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/acpid
 
