@@ -26,9 +26,8 @@ support is enabled (kernel 2.3.x or later).
 
 %build
 %serverbuild
-# Don't use standard optflag, don't run mandb (does not eixst on Mandriva) and use
-# correct LDFLAGS
-sed -i -e "/^OPT = /d" -e "/mandb -q/d" -e "1iLDFLAGS = -pie %{ldflags}" Makefile
+# Don't use standard optflag, correct LDFLAGS
+sed -i -e "/^OPT = /d"  -e "1iLDFLAGS = -pie %{ldflags}" Makefile
 OPT="%{optflags} -fPIC" %make
 
 %install
