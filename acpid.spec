@@ -1,6 +1,6 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
-Version:		2.0.2
+Version:		2.0.3
 Release:		%manbo_mkrel 1
 License:		GPLv2+
 Group:			System/Servers
@@ -21,7 +21,7 @@ for each computer, in a generic manner. The ACPI daemon coordinates
 the management of power and system functions when ACPI kernel
 support is enabled (kernel 2.3.x or later).
 
-%prep 
+%prep
 %setup -q
 
 %build
@@ -32,7 +32,7 @@ sed -i -e "/^OPT = /d" -e "/mandb -q/d" -e "1iLDFLAGS = -pie %{ldflags}" Makefil
 OPT="%{optflags} -fPIC" %make
 
 %install
-%makeinstall_std 
+%makeinstall_std
 mkdir -p %{buildroot}/%{_initrddir}
 install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/acpid
 
