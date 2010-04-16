@@ -1,12 +1,12 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
-Version:		2.0.3
+Version:		2.0.4
 Release:		%manbo_mkrel 1
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
 URL:			http://www.tedfelix.com/linux/acpid-netlink.html
-Source0:		http://www.tedfelix.com/linux/{name}/%{name}-%{version}.tar.gz
+Source0:		http://www.tedfelix.com/linux/%{name}-%{version}.tar.gz
 Source1:		acpid.rc
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
