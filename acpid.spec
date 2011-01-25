@@ -1,13 +1,16 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Version:		2.0.7
-Release:		%manbo_mkrel 1
+Release:		%manbo_mkrel 2
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
 URL:			http://www.tedfelix.com/linux/acpid-netlink.html
 Source0:		http://www.tedfelix.com/linux/%{name}-%{version}.tar.gz
 Source1:		acpid.rc
+Source2:		acpid.service
+Patch0:			acpid-2.0.7-makefile.patch
+Patch1:			acpid-2.0.7-signed-unsigned.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(post):		chkconfig >= 1.3.37-3mdv
@@ -23,6 +26,8 @@ support is enabled (kernel 2.3.x or later).
 
 %prep
 %setup -q
+%patch0 -p1 -b .makefile
+%patch1 -p1 -b .signed-unsigned
 
 %build
 %serverbuild
@@ -34,6 +39,8 @@ OPT="%{optflags} -fPIC" %make
 %makeinstall_std
 mkdir -p %{buildroot}/%{_initrddir}
 install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/acpid
+mkdir -p %{buildroot}/lib/systemd/system
+install -m755 %{SOURCE2} %{buildroot}/lib/systemd/system
 
 install -d %{buildroot}%{_sysconfdir}/acpi/actions
 
@@ -56,4 +63,5 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_mandir}/man8/*
 %{_initrddir}/acpid
+/lib/systemd/system/acpid.service
 %dir %{_sysconfdir}/acpi/actions
