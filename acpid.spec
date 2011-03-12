@@ -1,7 +1,7 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
-Version:		2.0.7
-Release:		%manbo_mkrel 2
+Version:		2.0.8
+Release:		%manbo_mkrel 1
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
@@ -10,7 +10,6 @@ Source0:		http://www.tedfelix.com/linux/%{name}-%{version}.tar.gz
 Source1:		acpid.rc
 Source2:		acpid.service
 Patch0:			acpid-2.0.7-makefile.patch
-Patch1:			acpid-2.0.7-signed-unsigned.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(post):		chkconfig >= 1.3.37-3mdv
@@ -27,7 +26,6 @@ support is enabled (kernel 2.3.x or later).
 %prep
 %setup -q
 %patch0 -p1 -b .makefile
-%patch1 -p1 -b .signed-unsigned
 
 %build
 %serverbuild
