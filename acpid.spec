@@ -49,10 +49,16 @@ rm -rf %{buildroot}
 /sbin/chkconfig --level 7 acpid reset
 
 %post
-%_post_service acpid
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+if [ $1 -eq 1 ]; then
+    /bin/systemctl enable %{name}.service > /dev/null 2>&1 || :
+fi
 
 %preun
-%_preun_service acpid
+if [ "$1" = "0" ]; then
+    /bin/systemctl disable %{name}.service > /dev/null 2>&1 || :
+    /bin/systemctl stop %{name}.service > /dev/null 2>&1 || :
+fi
 
 %files
 %defattr(-,root,root)
