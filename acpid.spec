@@ -1,7 +1,7 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Version:		2.0.13
-Release:		%manbo_mkrel 1
+Release:		%manbo_mkrel 2
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
@@ -37,8 +37,8 @@ OPT="%{optflags} -fPIC" %make
 %makeinstall_std
 mkdir -p %{buildroot}/%{_initrddir}
 install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/acpid
-mkdir -p %{buildroot}/lib/systemd/system
-install -m755 %{SOURCE2} %{buildroot}/lib/systemd/system
+mkdir -p %{buildroot}%{_systemunitdir}
+install -m755 %{SOURCE2} %{buildroot}%{_systemunitdir}
 
 install -d %{buildroot}%{_sysconfdir}/acpi/actions
 
@@ -53,6 +53,7 @@ rm -rf %{buildroot}
 if [ $1 -eq 1 ]; then
     /bin/systemctl enable %{name}.service > /dev/null 2>&1 || :
 fi
+    /bin/systemctl try-restart %{name}.service > /dev/null 2>&1 || :
 
 %preun
 if [ "$1" = "0" ]; then
@@ -67,5 +68,5 @@ fi
 %{_bindir}/*
 %{_mandir}/man8/*
 %{_initrddir}/acpid
-/lib/systemd/system/acpid.service
+%{_systemunitdir}/acpid.service
 %dir %{_sysconfdir}/acpi/actions
