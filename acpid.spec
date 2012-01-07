@@ -1,7 +1,7 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
-Version:		2.0.13
-Release:		%manbo_mkrel 2
+Version:		2.0.14
+Release:		%manbo_mkrel 1
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
