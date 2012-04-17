@@ -1,15 +1,14 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
-Version:		2.0.14
+Version:		2.0.16
 Release:		%manbo_mkrel 1
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
 URL:			http://www.tedfelix.com/linux/acpid-netlink.html
-Source0:		http://www.tedfelix.com/linux/%{name}-%{version}.tar.gz
+Source0:		http://www.tedfelix.com/linux/%{name}-%{version}.tar.xz
 Source1:		acpid.rc
 Source2:		acpid.service
-Patch0:			acpid-2.0.7-makefile.patch
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
 Requires(post):		rpm-helper
 Requires(post):		chkconfig >= 1.3.37-3mdv
@@ -25,13 +24,13 @@ support is enabled (kernel 2.3.x or later).
 
 %prep
 %setup -q
-%patch0 -p1 -b .makefile
 
 %build
+%configure2_5x
 %serverbuild
 # Don't use standard optflag, correct LDFLAGS
-sed -i -e "/^OPT = /d"  -e "1iLDFLAGS = -pie %{ldflags}" Makefile
-OPT="%{optflags} -fPIC" %make
+#sed -i -e "/^OPT = /d"  -e "1iLDFLAGS = -pie %{ldflags}" Makefile
+#OPT="%{optflags} -fPIC" %make
 
 %install
 %makeinstall_std
