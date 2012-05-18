@@ -1,7 +1,7 @@
 Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Version:		2.0.16
-Release:		%manbo_mkrel 1
+Release:		%manbo_mkrel 2
 License:		GPLv2+
 Group:			System/Servers
 Epoch:			2
@@ -10,6 +10,7 @@ Source0:		http://www.tedfelix.com/linux/%{name}-%{version}.tar.xz
 Source1:		acpid.rc
 Source2:		acpid.service
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
+BuildRequires:		systemd-units
 Requires(post):		rpm-helper
 Requires(post):		chkconfig >= 1.3.37-3mdv
 Requires(preun):	rpm-helper
@@ -40,6 +41,7 @@ mkdir -p %{buildroot}%{_systemunitdir}
 install -m755 %{SOURCE2} %{buildroot}%{_systemunitdir}
 
 install -d %{buildroot}%{_sysconfdir}/acpi/actions
+install -d -m 755 %{buildroot}%{_sysconfdir}/acpi/events
 
 %clean
 rm -rf %{buildroot}
@@ -48,17 +50,13 @@ rm -rf %{buildroot}
 /sbin/chkconfig --level 7 acpid reset
 
 %post
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -eq 1 ]; then
-    /bin/systemctl enable %{name}.service > /dev/null 2>&1 || :
-fi
-    /bin/systemctl try-restart %{name}.service > /dev/null 2>&1 || :
+%_post_service %{name} %{name}.service
+
+%postun
+%_postun_unit %{name}.service
 
 %preun
-if [ "$1" = "0" ]; then
-    /bin/systemctl disable %{name}.service > /dev/null 2>&1 || :
-    /bin/systemctl stop %{name}.service > /dev/null 2>&1 || :
-fi
+%_preun_service %{name} %{name}.service
 
 %files
 %defattr(-,root,root)
@@ -69,3 +67,4 @@ fi
 %{_initrddir}/acpid
 %{_systemunitdir}/acpid.service
 %dir %{_sysconfdir}/acpi/actions
+%dir %{_sysconfdir}/acpi/events
