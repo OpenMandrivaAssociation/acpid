@@ -6,7 +6,7 @@ Release:		1
 License:		GPLv2+
 Group:			System/Servers
 Url:			http://sourceforge.net/projects/acpid2/
-Source0:		http://downloads.sourceforge.net/project/acpid2/%{name}-%{version}.tar.xz
+Source0:		http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source2:		acpid.service
 Source3:		acpid.config
 ExclusiveArch:		%{ix86} ia64 x86_64 amd64
