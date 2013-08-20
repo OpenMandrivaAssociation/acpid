@@ -2,7 +2,7 @@ Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Epoch:			2
 Version:		2.0.19
-Release:		1
+Release:		2
 License:		GPLv2+
 Group:			System/Servers
 Url:			http://sourceforge.net/projects/acpid2/
@@ -24,11 +24,8 @@ support is enabled (kernel 2.3.x or later).
 %setup -q
 
 %build
-%configure2_5x
 %serverbuild_hardened
-# Don't use standard optflag, correct LDFLAGS
-#sed -i -e "/^OPT = /d"  -e "1iLDFLAGS = -pie %{ldflags}" Makefile
-#OPT="%{optflags} -fPIC" %make
+%configure2_5x
 
 %make
 
