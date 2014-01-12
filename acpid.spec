@@ -2,7 +2,7 @@ Summary:		ACPI kernel daemon and control utility
 Name:			acpid
 Epoch:			2
 Version:		2.0.20
-Release:		1
+Release:		2
 License:		GPLv2+
 Group:			System/Servers
 Url:			http://sourceforge.net/projects/acpid2/
