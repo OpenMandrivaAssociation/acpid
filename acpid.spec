@@ -9,7 +9,7 @@ Url:			http://sourceforge.net/projects/acpid2/
 Source0:		http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source2:		acpid.service
 Source3:		acpid.config
-ExclusiveArch:		%{ix86} ia64 x86_64 amd64
+ExclusiveArch:		%{ix86} ia64 x86_64 amd64 %arm
 BuildRequires:		systemd-units
 Requires(post,preun):	rpm-helper
 Requires(post):		chkconfig
