@@ -10,8 +10,8 @@ Source0:		http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source1:		acpid.socket
 Source2:		acpid.service
 Source3:		acpid.config
-ExclusiveArch:		%{ix86} ia64 x86_64 amd64 %arm
-BuildRequires:		systemd-units
+ExclusiveArch:	%{ix86} ia64 x86_64 amd64 %arm
+BuildRequires:	systemd-units
 Requires(post,preun,postun):	rpm-helper
 
 %description
@@ -25,7 +25,7 @@ support is enabled (kernel 2.3.x or later).
 
 %build
 %serverbuild_hardened
-%configure2_5x
+%configure
 
 %make
 
@@ -60,6 +60,7 @@ fi
 %{_bindir}/*
 %{_mandir}/man8/*
 %{_unitdir}/acpid.service
+%{_unitdir}/acpid.socket
 %dir %{_sysconfdir}/acpi/actions
 %dir %{_sysconfdir}/acpi/events
 
