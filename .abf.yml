@@ -1,4 +1,2 @@
-removed_sources:
-  acpid-2.0.21.tar.xz: b215b8ee9b50579caeb791d88cca194235f807d4
 sources:
-  acpid-2.0.22.tar.xz: d62ca27000250b207de52387c860c35af5f357ba
+  acpid-2.0.23.tar.xz: 8a6e0c26d579ed4e87822e5a2d2f7cad5c661d88
