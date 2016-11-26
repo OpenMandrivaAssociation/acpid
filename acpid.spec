@@ -1,7 +1,7 @@
 Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
-Version:	2.0.27
+Version:	2.0.28
 Release:	1
 License:	GPLv2+
 Group:		System/Servers
@@ -40,7 +40,7 @@ install -d %{buildroot}%{_sysconfdir}/acpi/actions
 install -d -m 755 %{buildroot}%{_sysconfdir}/acpi/events
 
 %files
-%doc README TODO Changelog
+%doc README
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/sysconfig/acpid
 %{_sbindir}/*
 %{_bindir}/*
