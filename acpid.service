@@ -4,8 +4,10 @@ Documentation=man:acpid(8)
 Requires=acpid.socket
 
 [Service]
+StandardInput=socket
 EnvironmentFile=/etc/sysconfig/acpid
 ExecStart=/usr/sbin/acpid -f $OPTIONS
 
 [Install]
 Also=acpid.socket
+WantedBy=multi-user.target
