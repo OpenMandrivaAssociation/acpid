@@ -40,7 +40,7 @@ install -d %{buildroot}%{_sysconfdir}/acpi/actions
 install -d -m 755 %{buildroot}%{_sysconfdir}/acpi/events
 
 %files
-%doc README
+%doc %{_docdir}/%{name}
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/sysconfig/acpid
 %{_sbindir}/*
 %{_bindir}/*
