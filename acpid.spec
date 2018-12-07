@@ -21,7 +21,7 @@ the management of power and system functions when ACPI kernel
 support is enabled (kernel 2.3.x or later).
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %serverbuild_hardened
