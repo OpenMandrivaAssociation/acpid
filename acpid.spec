@@ -1,7 +1,7 @@
 Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
-Version:	2.0.28
+Version:	2.0.31
 Release:	1
 License:	GPLv2+
 Group:		System/Servers
@@ -10,8 +10,8 @@ Source0:	http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source1:	acpid.socket
 Source2:	acpid.service
 Source3:	acpid.config
-ExclusiveArch:	%{ix86} ia64 x86_64 amd64 %arm
-BuildRequires:	systemd
+ExclusiveArch:	%{ix86} ia64 %{x86_64} amd64 %{armx}
+BuildRequires:	systemd-macros
 Requires(post,preun,postun):	rpm-helper
 
 %description
@@ -26,10 +26,10 @@ support is enabled (kernel 2.3.x or later).
 %build
 %serverbuild_hardened
 %configure
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 mkdir -p %{buildroot}%{_unitdir}
 install -m644 %{SOURCE1} %{SOURCE2} %{buildroot}%{_unitdir}
 
@@ -39,12 +39,18 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/acpid
 install -d %{buildroot}%{_sysconfdir}/acpi/actions
 install -d -m 755 %{buildroot}%{_sysconfdir}/acpi/events
 
+install -d %{buildroot}%{_presetdir}
+cat > %{buildroot}%{_presetdir}/86-acpid.preset << EOF
+enable acpid.socket
+EOF
+
 %files
-%doc README
+%doc %{_docdir}/%{name}
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/sysconfig/acpid
 %{_sbindir}/*
 %{_bindir}/*
 %{_mandir}/man8/*
+%{_presetdir}/86-acpid.preset
 %{_unitdir}/acpid.service
 %{_unitdir}/acpid.socket
 %dir %{_sysconfdir}/acpi/actions
