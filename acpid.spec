@@ -10,8 +10,8 @@ Source0:	http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source1:	acpid.socket
 Source2:	acpid.service
 Source3:	acpid.config
-ExclusiveArch:	%{ix86} ia64 %{x86_64} amd64 %{armx}
-BuildRequires:	systemd-macros
+ExclusiveArch:	%{ix86} ia64 x86_64 amd64 %{armx}
+BuildRequires:	systemd
 Requires(post,preun,postun):	rpm-helper
 
 %description
@@ -26,10 +26,10 @@ support is enabled (kernel 2.3.x or later).
 %build
 %serverbuild_hardened
 %configure
-%make_build
+%make
 
 %install
-%make_install
+%makeinstall_std
 mkdir -p %{buildroot}%{_unitdir}
 install -m644 %{SOURCE1} %{SOURCE2} %{buildroot}%{_unitdir}
 
