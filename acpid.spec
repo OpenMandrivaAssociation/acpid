@@ -1,8 +1,8 @@
 Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
-Version:	2.0.30
-Release:	2
+Version:	2.0.31
+Release:	1
 License:	GPLv2+
 Group:		System/Servers
 Url:		http://sourceforge.net/projects/acpid2/
@@ -10,8 +10,8 @@ Source0:	http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source1:	acpid.socket
 Source2:	acpid.service
 Source3:	acpid.config
-ExclusiveArch:	%{ix86} ia64 x86_64 znver1 amd64 %arm
-BuildRequires:	pkgconfig(libsystemd)
+ExclusiveArch:	%{ix86} ia64 %{x86_64} amd64 %{armx}
+BuildRequires:	systemd-macros
 Requires(post,preun,postun):	rpm-helper
 
 %description
@@ -26,10 +26,10 @@ support is enabled (kernel 2.3.x or later).
 %build
 %serverbuild_hardened
 %configure
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 mkdir -p %{buildroot}%{_unitdir}
 install -m644 %{SOURCE1} %{SOURCE2} %{buildroot}%{_unitdir}
 
