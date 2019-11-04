@@ -2,7 +2,7 @@ Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
 Version:	2.0.32
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Servers
 Url:		http://sourceforge.net/projects/acpid2/
@@ -10,6 +10,8 @@ Source0:	http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source1:	acpid.socket
 Source2:	acpid.service
 Source3:	acpid.config
+# https://sourceforge.net/p/acpid2/tickets/14/
+Patch0:		acpid-2.0.32-kacpimon-dynamic-connections.patch
 ExclusiveArch:	%{ix86} ia64 %{x86_64} amd64 %{armx} riscv64
 BuildRequires:	systemd-macros
 Requires(post,preun,postun):	rpm-helper
