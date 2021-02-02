@@ -2,7 +2,7 @@ Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
 Version:	2.0.32
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		System/Servers
 Url:		http://sourceforge.net/projects/acpid2/
@@ -45,6 +45,15 @@ install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/86-acpid.preset << EOF
 enable acpid.socket
 EOF
+
+%post
+%systemd_post %{name}.socket
+
+%preun
+%systemd_preun %{name}.socket
+
+%postun
+%systemd_postun_with_restart %{name}.socket
 
 %files
 %doc %{_docdir}/%{name}
