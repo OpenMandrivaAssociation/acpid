@@ -2,7 +2,7 @@ Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
 Version:	2.0.32
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		System/Servers
 Url:		http://sourceforge.net/projects/acpid2/
@@ -14,7 +14,7 @@ Source3:	acpid.config
 Patch0:		acpid-2.0.32-kacpimon-dynamic-connections.patch
 ExclusiveArch:	%{ix86} ia64 %{x86_64} amd64 %{armx} riscv64
 BuildRequires:	systemd-macros
-Requires(post,preun,postun):	rpm-helper
+%systemd_requires
 
 %description
 The ACPI specification defines power and system management functions
