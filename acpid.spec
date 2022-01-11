@@ -13,7 +13,7 @@ Source3:	acpid.config
 # https://sourceforge.net/p/acpid2/tickets/14/
 Patch0:		acpid-2.0.32-kacpimon-dynamic-connections.patch
 ExclusiveArch:	%{ix86} ia64 %{x86_64} amd64 %{armx} riscv64
-BuildRequires:	systemd-macros
+BuildRequires:	systemd-rpm-macros
 %systemd_requires
 
 %description
