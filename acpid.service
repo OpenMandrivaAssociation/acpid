@@ -6,7 +6,7 @@ Requires=acpid.socket
 [Service]
 StandardInput=socket
 EnvironmentFile=/etc/sysconfig/acpid
-ExecStart=/usr/sbin/acpid -f $OPTIONS
+ExecStart=/usr/bin/acpid -f $OPTIONS
 
 [Install]
 Also=acpid.socket

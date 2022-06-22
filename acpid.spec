@@ -2,7 +2,7 @@ Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
 Version:	2.0.33
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Servers
 Url:		http://sourceforge.net/projects/acpid2/
@@ -26,7 +26,6 @@ support is enabled (kernel 2.3.x or later).
 %autosetup -p1
 
 %build
-%serverbuild_hardened
 %configure
 %make_build
 
@@ -58,9 +57,8 @@ EOF
 %files
 %doc %{_docdir}/%{name}
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/sysconfig/acpid
-%{_sbindir}/*
 %{_bindir}/*
-%{_mandir}/man8/*
+%doc %{_mandir}/man8/*
 %{_presetdir}/86-acpid.preset
 %{_unitdir}/acpid.service
 %{_unitdir}/acpid.socket
