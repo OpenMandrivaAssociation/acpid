@@ -1,8 +1,8 @@
 Summary:	ACPI kernel daemon and control utility
 Name:		acpid
 Epoch:		2
-Version:	2.0.33
-Release:	2
+Version:	2.0.34
+Release:	1
 License:	GPLv2+
 Group:		System/Servers
 Url:		http://sourceforge.net/projects/acpid2/
@@ -46,13 +46,13 @@ enable acpid.socket
 EOF
 
 %post
-%systemd_post %{name}.socket
-
+%systemd_post %{name}.socket %{name}.service
+ 
 %preun
-%systemd_preun %{name}.socket
-
+%systemd_preun %{name}.socket %{name}.service
+ 
 %postun
-%systemd_postun_with_restart %{name}.socket
+%systemd_postun_with_restart %{name}.socket %{name}.service
 
 %files
 %doc %{_docdir}/%{name}
