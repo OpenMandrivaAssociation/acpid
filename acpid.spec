@@ -5,7 +5,7 @@ Version:	2.0.34
 Release:	2
 License:	GPLv2+
 Group:		System/Servers
-Url:		http://sourceforge.net/projects/acpid2/
+Url:		https://sourceforge.net/projects/acpid2/
 Source0:	http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source1:	acpid.socket
 Source2:	acpid.service
